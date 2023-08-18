@@ -21,7 +21,7 @@ class TestViewModel: ObservableObject {
         guard let url = URL(string: "https://jsonplaceholder.typicode.com/posts") else {return}
         
         
-        let task = URLSession.shared.dataTask(with: url) { data, res, error in
+        let task = URLSession.shared.dataTask(with: url) { data, _, error in
             if error != nil {
                 print("DEBUG: ERROR: \(error!)")
                 return
@@ -30,7 +30,7 @@ class TestViewModel: ObservableObject {
             guard let data = data else {return}
             do {
                 let tests = try JSONDecoder().decode([Test].self, from: data)
-                print("DEBUG: TESTS: \(tests)")
+//                print("DEBUG: TESTS: \(tests)")
                 DispatchQueue.main.async {
                     self.tests = tests
                 }
