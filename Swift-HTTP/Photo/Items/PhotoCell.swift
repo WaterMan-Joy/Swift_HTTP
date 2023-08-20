@@ -8,13 +8,46 @@
 import SwiftUI
 
 struct PhotoCell: View {
+    
+    let photo: Photo
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text(photo.title)
+            AsyncImage(url: URL(string: photo.url)) { phase in
+                        switch phase {
+                        case .empty:
+                            ProgressView()
+                        case .success(let image):
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                        case .failure:
+                            Image(systemName: "xmark.octagon")
+                                .imageScale(.large)
+                                .foregroundColor(.red)
+                        @unknown default:
+                            fatalError()
+                        }
+                    }
+            AsyncImage(url: URL(string: photo.thumbnailURL)) { phase in
+                        switch phase {
+                        case .empty:
+                            ProgressView()
+                        case .success(let image):
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                        case .failure:
+                            Image(systemName: "xmark.octagon")
+                                .imageScale(.large)
+                                .foregroundColor(.red)
+                        @unknown default:
+                            fatalError()
+                        }
+                    }
+        }
     }
 }
 
-struct PhotoCell_Previews: PreviewProvider {
-    static var previews: some View {
-        PhotoCell()
-    }
-}
+

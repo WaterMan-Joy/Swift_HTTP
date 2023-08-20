@@ -12,12 +12,11 @@ class TestViewModel: ObservableObject {
     @Published var tests = [Test]()
     
     init() {
-        fetchTests()
+        print("DEBUG: INIT TEST VIEW MODEL")
     }
     
     
     func fetchTests() {
-        print("DEBUG: INIT VIEW MODEL")
         guard let url = URL(string: "https://jsonplaceholder.typicode.com/posts") else {return}
         
         
@@ -30,9 +29,10 @@ class TestViewModel: ObservableObject {
             guard let data = data else {return}
             do {
                 let tests = try JSONDecoder().decode([Test].self, from: data)
-//                print("DEBUG: TESTS: \(tests)")
+                let countTests = tests.filter({$0.id < 5})
+                print(countTests)
                 DispatchQueue.main.async {
-                    self.tests = tests
+                    self.tests = countTests
                 }
 
             } catch {

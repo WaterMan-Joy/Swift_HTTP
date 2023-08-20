@@ -10,7 +10,20 @@ import SwiftUI
 struct ContentView: View {
     
     var body: some View {
-        TestView()
+        TabView {
+            Group {
+                TestView()
+                    .tabItem({
+                        Image(systemName: "house.circle")
+                        Text("Tests")
+                    })
+                PhotoView()
+                    .tabItem({
+                        Image(systemName: "photo.on.rectangle.angled")
+                        Text("Photos")
+                    })
+            }
+        }
     }
 }
 

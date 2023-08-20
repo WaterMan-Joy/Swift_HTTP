@@ -6,3 +6,34 @@
 //
 
 import Foundation
+
+class PhotoViewModel: ObservableObject {
+    @Published var photos: [Photo] = [Photo]()
+    
+    init() {
+        print("DEBUG: INIT PHOTO VIEW MODEL")
+    }
+    
+    func fetchPhotos() {
+        guard let url = URL(string: "https://jsonplaceholder.typicode.com/photos") else {return}
+        
+        let task = URLSession.shared.dataTask(with: url) { data, _, error in
+            if let error = error {
+                print("DEBUG: ERROR: \(error)")
+            }
+            
+            guard let data = data else {return}
+            
+            do {
+                let photos = try JSONDecoder().decode([Photo].self, from: data)
+                let countPhotos = photos.filter({$0.id < 5})
+                DispatchQueue.main.async {
+                    self.photos = countPhotos
+                }
+            } catch {
+                print(error)
+            }
+        }
+        task.resume()
+    }
+}

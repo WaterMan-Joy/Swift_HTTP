@@ -8,8 +8,23 @@
 import SwiftUI
 
 struct PhotoView: View {
+    
+    @StateObject var viewModel = PhotoViewModel()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ScrollView {
+            VStack {
+                Button(action: {
+                    viewModel.fetchPhotos()
+                }, label: {
+                    Text("fetch photos")
+                })
+                ForEach(viewModel.photos) {photo in
+                    PhotoCell(photo: photo)
+                }
+                
+            }
+        }
     }
 }
 

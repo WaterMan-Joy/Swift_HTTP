@@ -13,7 +13,13 @@ struct TestView: View {
     
     var body: some View {
         ScrollView {
+            
             VStack {
+                Button(action: {
+                    viewModel.fetchTests()
+                }, label: {
+                    Text("fetch tests")
+                })
                 ForEach(viewModel.tests) { test in
                     TestCell(test: test)
                 }
