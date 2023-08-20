@@ -14,16 +14,14 @@ struct PhotoView: View {
     var body: some View {
         ScrollView {
             VStack {
-                Button(action: {
-                    viewModel.fetchPhotos()
-                }, label: {
-                    Text("fetch photos")
-                })
                 ForEach(viewModel.photos) {photo in
                     PhotoCell(photo: photo)
                 }
                 
             }
+        }
+        .refreshable {
+            viewModel.fetchPhotos()
         }
     }
 }

@@ -13,6 +13,7 @@ class TestViewModel: ObservableObject {
     
     init() {
         print("DEBUG: INIT TEST VIEW MODEL")
+        fetchTests()
     }
     
     

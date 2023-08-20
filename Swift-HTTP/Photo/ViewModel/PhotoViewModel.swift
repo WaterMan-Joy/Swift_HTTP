@@ -12,6 +12,7 @@ class PhotoViewModel: ObservableObject {
     
     init() {
         print("DEBUG: INIT PHOTO VIEW MODEL")
+        fetchPhotos()
     }
     
     func fetchPhotos() {
@@ -27,6 +28,7 @@ class PhotoViewModel: ObservableObject {
             do {
                 let photos = try JSONDecoder().decode([Photo].self, from: data)
                 let countPhotos = photos.filter({$0.id < 5})
+                print(countPhotos)
                 DispatchQueue.main.async {
                     self.photos = countPhotos
                 }

@@ -15,15 +15,13 @@ struct TestView: View {
         ScrollView {
             
             VStack {
-                Button(action: {
-                    viewModel.fetchTests()
-                }, label: {
-                    Text("fetch tests")
-                })
                 ForEach(viewModel.tests) { test in
                     TestCell(test: test)
                 }
             }
+        }
+        .refreshable {
+            viewModel.fetchTests()
         }
         
     }
